@@ -1,23 +1,16 @@
 # PayrollAPI
 
-A small ASP.NET Core Web API that calculates South African payroll deductions — PAYE, UIF, and SDL — for a list of employees. I built this to get real hands-on experience with C# and .NET after working mostly in the Node/TypeScript world, and picked payroll because it's a domain I already know well from [LedgerJack](https://github.com/Sherwynm0702) and a live payroll system I built for a client. Rebuilding that logic in a new stack felt like a better way to learn than a generic tutorial project.
+A small ASP.NET Core API that works out South African payroll deductions — PAYE, UIF, and SDL — for a list of employees.
 
-## What it does
+I've spent most of my time in React/TypeScript/Node, including building a live payroll module for a hotel client. This is me picking up C# and .NET properly, and instead of doing yet another to-do list tutorial, I rebuilt something I already understand deeply — SA payroll tax logic — so I could focus on learning the new stack rather than a new domain at the same time.
 
-- Manage employees (create, read, update, delete) with basic validation (required names, positive salary, etc.)
-- Generate a payslip for an employee: gross salary in, PAYE + UIF + net pay out
-- Calculate the employer's monthly SDL liability across the whole payroll
-- Tax rules (brackets, rebate, UIF ceiling, SDL threshold) are stored per tax year in the database rather than hardcoded, so a new tax year can be added without touching the calculation code
+It manages employees (create, read, update, delete), generates a payslip for one of them — gross salary in, PAYE + UIF + net pay out — and works out the employer's monthly SDL liability across the whole payroll. Tax rules (brackets, rebate, UIF ceiling, SDL threshold) live in the database per tax year rather than being hardcoded, so adding a new tax year is a data change, not a code change.
 
-## Stack
+Built with ASP.NET Core 8, EF Core against SQL Server (LocalDB locally), and Swagger for poking at the endpoints without needing Postman.
 
-- **ASP.NET Core 8** (Web API)
-- **Entity Framework Core** with **SQL Server** (LocalDB for local dev)
-- **Swagger / OpenAPI** for exploring and testing endpoints
+## Running it
 
-## Getting started
-
-**Requirements:** .NET 8 SDK, SQL Server LocalDB (comes with Visual Studio) or any SQL Server instance.
+You'll need the .NET 8 SDK and SQL Server LocalDB (comes with Visual Studio, or grab it separately).
 
 ```bash
 git clone <repo-url>
@@ -26,11 +19,9 @@ dotnet ef database update
 dotnet run
 ```
 
-The API comes up on `https://localhost:<port>` with Swagger UI at `/swagger` — that's the easiest way to try the endpoints without needing a separate client.
+That spins up the API on `https://localhost:<port>` with Swagger UI at `/swagger` — easiest way to try it without wiring up a frontend. The database seeds itself with two tax years (2026/27 live rates, plus an older 2024/25 set I used to sanity-check the bracket logic across years), so you can create an employee and hit the payslip endpoint straight away.
 
-The database is seeded with two tax years (2026/27 live rates, plus a 2024/25 set used for testing bracket logic across years), so you can create an employee and hit the payslip endpoint immediately.
-
-## API overview
+## Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -39,18 +30,9 @@ The database is seeded with two tax years (2026/27 live rates, plus a 2024/25 se
 | POST | `/api/employees` | Create an employee |
 | PUT | `/api/employees/{id}` | Update an employee |
 | DELETE | `/api/employees/{id}` | Delete an employee |
-| GET | `/api/employees/{id}/payslip` | Calculate PAYE, UIF, and net pay for an employee |
-| GET | `/api/payroll/sdl` | Calculate the employer's monthly SDL liability |
+| GET | `/api/employees/{id}/payslip` | Work out PAYE, UIF, and net pay for an employee |
+| GET | `/api/payroll/sdl` | Work out the employer's monthly SDL liability |
 
-## Known limitations
+## What's missing
 
-This is a learning/portfolio project, not a production system, so a few things are intentionally out of scope for now:
-
-- No authentication/authorization — every endpoint is open
-- No automated tests yet
-- Tax year data is seeded manually rather than sourced from a config or admin UI
-- Not yet deployed — runs locally against SQL Server LocalDB
-
-## Why this exists
-
-Most of my production work has been in React/TypeScript/Node, including a live payroll module for a hotel client. This project is the same core problem — SA statutory payroll calculations — solved again in C# and ASP.NET Core, to build real (not just theoretical) exposure to the .NET stack that's common across a lot of the SA enterprise job market.
+It's a learning project, not something running in production, so a few things are deliberately left out for now rather than forgotten: there's no auth, so every endpoint is wide open; no automated tests yet; tax year data goes in by hand rather than through an admin UI or config file; and it's not deployed anywhere — local-only, against SQL Server LocalDB. I'll chip away at these as I keep using the project to learn more of the .NET ecosystem.
