@@ -12,7 +12,7 @@ using PayrollAPI.Data;
 namespace PayrollAPI.Migrations
 {
     [DbContext(typeof(PayrollDbContext))]
-    [Migration("20260916090920_InitialCreate")]
+    [Migration("20260916092023_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -189,8 +189,8 @@ namespace PayrollAPI.Migrations
                         new
                         {
                             Id = 1,
-                            EffectiveFrom = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EffectiveTo = new DateTime(2027, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EffectiveFrom = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EffectiveTo = new DateTime(2027, 2, 28, 0, 0, 0, 0, DateTimeKind.Utc),
                             Label = "2026/27",
                             PrimaryRebate = 17820m,
                             SdlAnnualThreshold = 500000m,
@@ -201,8 +201,8 @@ namespace PayrollAPI.Migrations
                         new
                         {
                             Id = 2,
-                            EffectiveFrom = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EffectiveTo = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EffectiveFrom = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EffectiveTo = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Utc),
                             Label = "2024/25 (test)",
                             PrimaryRebate = 17235m,
                             SdlAnnualThreshold = 500000m,

@@ -16,8 +16,8 @@ namespace PayrollAPI.Data
             {
                 Id = 1,
                 Label = "2026/27",
-                EffectiveFrom = new DateTime(2026, 3, 1),
-                EffectiveTo = new DateTime(2027, 2, 28),
+                EffectiveFrom = DateTime.SpecifyKind(new DateTime(2026, 3, 1), DateTimeKind.Utc),
+                EffectiveTo = DateTime.SpecifyKind(new DateTime(2027, 2, 28), DateTimeKind.Utc),
                 PrimaryRebate = 17820m,
                 UifRate = 0.01m,
                 UifCeiling = 17712m,
@@ -38,8 +38,8 @@ namespace PayrollAPI.Data
             {
                 Id = 2,
                 Label = "2024/25 (test)",
-                EffectiveFrom = new DateTime(2024, 3, 1),
-                EffectiveTo = new DateTime(2025, 2, 28),
+                EffectiveFrom = DateTime.SpecifyKind(new DateTime(2024, 3, 1), DateTimeKind.Utc),
+                EffectiveTo = DateTime.SpecifyKind(new DateTime(2025, 2, 28), DateTimeKind.Utc),
                 PrimaryRebate = 17235m,
                 UifRate = 0.01m,
                 UifCeiling = 5000m,

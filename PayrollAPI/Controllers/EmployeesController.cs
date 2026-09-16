@@ -102,7 +102,7 @@ namespace PayrollAPI.Controllers
             }
 
             decimal annualSalary = employee.GrossMonthlySalary * 12;
-            DateTime payDate = DateTime.Today;
+            DateTime payDate = DateTime.UtcNow.Date;
             decimal annualPaye = await _calculator.CalculateAnnualPayeAsync(annualSalary, payDate);
             decimal monthlyPaye = annualPaye / 12;
             decimal monthlyUif = await _calculator.CalculateUifAsync(employee.GrossMonthlySalary, employee.UifExempt, payDate);
