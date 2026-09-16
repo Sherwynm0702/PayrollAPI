@@ -78,8 +78,8 @@ namespace PayrollAPI.Migrations
                 columns: new[] { "Id", "EffectiveFrom", "EffectiveTo", "Label", "PrimaryRebate", "SdlAnnualThreshold", "SdlRate", "UifCeiling", "UifRate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "2026/27", 17820m, 500000m, 0.01m, 17712m, 0.01m },
-                    { 2, new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "2024/25 (test)", 17235m, 500000m, 0.01m, 5000m, 0.01m }
+                    { 1, new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2027, 2, 28, 0, 0, 0, 0, DateTimeKind.Utc), "2026/27", 17820m, 500000m, 0.01m, 17712m, 0.01m },
+                    { 2, new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Utc), "2024/25 (test)", 17235m, 500000m, 0.01m, 5000m, 0.01m }
                 });
 
             migrationBuilder.InsertData(

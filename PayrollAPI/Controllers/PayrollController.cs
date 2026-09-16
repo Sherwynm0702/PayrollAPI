@@ -25,7 +25,7 @@ namespace PayrollAPI.Controllers
 
             int employeeCount = await _context.Employees.CountAsync();
 
-            DateTime payDate = DateTime.Today;
+            DateTime payDate = DateTime.UtcNow.Date;
             decimal monthlySdl = await _calculator.CalculateMonthlySdlAsync(totalMonthlyPayroll, payDate);
 
             return Ok(new
