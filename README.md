@@ -2,11 +2,9 @@
 
 A small ASP.NET Core API that works out South African payroll deductions — PAYE, UIF, and SDL — for a list of employees.
 
-**Live:** https://payrollapi-5c8t.onrender.com/swagger
+> The free tier sleeps when idle, so the first request can take 30–50 seconds to spin up.
 
-> The free tier sleeps when idle, so the first request can take 30–50 seconds to spin up. It's fast after that.
-
-I've spent most of my time in React/TypeScript/Node, including building a live payroll module for a hotel client. This is me picking up C# and .NET properly, and instead of doing yet another to-do list tutorial, I rebuilt something I already understand deeply — SA payroll tax logic — so I could focus on learning the new stack rather than a new domain at the same time.
+I've spent most of my time in React/TypeScript/Node, including building a live payroll module for a hotel client. This is me picking up C# and .NET properly. I rebuilt something I already understand deeply — SA payroll tax logic — so I could focus on learning the new stack rather than a new domain at the same time.
 
 It manages employees (create, read, update, delete), generates a payslip for one of them — gross salary in, PAYE + UIF + net pay out — and works out the employer's monthly SDL liability across the whole payroll. Tax rules (brackets, rebate, UIF ceiling, SDL threshold) live in the database per tax year rather than being hardcoded, so adding a new tax year is a data change, not a code change.
 
