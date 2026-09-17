@@ -2,24 +2,28 @@
 
 A small ASP.NET Core API that works out South African payroll deductions — PAYE, UIF, and SDL — for a list of employees.
 
+**Live:** https://payrollapi-5c8t.onrender.com/swagger
+
+> The free tier sleeps when idle, so the first request can take 30–50 seconds to spin up. It's fast after that.
+
 I've spent most of my time in React/TypeScript/Node, including building a live payroll module for a hotel client. This is me picking up C# and .NET properly, and instead of doing yet another to-do list tutorial, I rebuilt something I already understand deeply — SA payroll tax logic — so I could focus on learning the new stack rather than a new domain at the same time.
 
 It manages employees (create, read, update, delete), generates a payslip for one of them — gross salary in, PAYE + UIF + net pay out — and works out the employer's monthly SDL liability across the whole payroll. Tax rules (brackets, rebate, UIF ceiling, SDL threshold) live in the database per tax year rather than being hardcoded, so adding a new tax year is a data change, not a code change.
 
-Built with ASP.NET Core 8, EF Core against SQL Server (LocalDB locally), and Swagger for poking at the endpoints without needing Postman.
+Built with ASP.NET Core 8, EF Core against PostgreSQL, and Swagger for poking at the endpoints without needing Postman. Deployed as a Docker container on Render, with a free Neon Postgres database.
 
-## Running it
+## Running it locally
 
-You'll need the .NET 8 SDK and SQL Server LocalDB (comes with Visual Studio, or grab it separately).
+You'll need the .NET 8 SDK and a PostgreSQL database (a free [Neon](https://neon.tech) project is the easiest way to get one).
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Sherwynm0702/PayrollAPI.git
 cd PayrollAPI/PayrollAPI
-dotnet ef database update
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=...;Database=...;Username=...;Password=...;SSL Mode=Require;"
 dotnet run
 ```
 
-That spins up the API on `https://localhost:<port>` with Swagger UI at `/swagger` — easiest way to try it without wiring up a frontend. The database seeds itself with two tax years (2026/27 live rates, plus an older 2024/25 set I used to sanity-check the bracket logic across years), so you can create an employee and hit the payslip endpoint straight away.
+Migrations run automatically on startup, so the database gets created and seeded the first time it connects. Swagger UI is at `/swagger`.
 
 ## Endpoints
 
@@ -35,4 +39,4 @@ That spins up the API on `https://localhost:<port>` with Swagger UI at `/swagger
 
 ## What's missing
 
-It's a learning project, not something running in production, so a few things are deliberately left out for now rather than forgotten: there's no auth, so every endpoint is wide open; no automated tests yet; tax year data goes in by hand rather than through an admin UI or config file; and it's not deployed anywhere — local-only, against SQL Server LocalDB. I'll chip away at these as I keep using the project to learn more of the .NET ecosystem.
+It's a learning project, not something running in real production, so a few things are deliberately left out for now rather than forgotten: there's no auth, so every endpoint is wide open (don't put real people's data in it); no automated tests yet; and tax year data goes in by hand rather than through an admin UI or config file. I'll chip away at these as I keep using the project to learn more of the .NET ecosystem.
